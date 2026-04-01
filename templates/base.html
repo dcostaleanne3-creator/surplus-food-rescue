@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth bg-gray-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,9 +19,49 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Smart Global Dark Mode - Professional Light Black */
+        html.dark-mode {
+            filter: invert(0.9) hue-rotate(180deg) contrast(1.1);
+            background-color: #1a1a1a; 
+        }
+        /* Preserve media colors globally */
+        html.dark-mode img, 
+        html.dark-mode video, 
+        html.dark-mode iframe {
+            filter: invert(1.1) hue-rotate(180deg) contrast(0.9); /* Reverse the fractional invert back to original */
+        }
+        
+        /* Animated Stars Background (Only in Dark Mode) */
+        html.dark-mode body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            /* Black dots in CSS which invert to glowing white stars in Dark Mode! */
+            background-image: 
+                radial-gradient(1.5px 1.5px at 15% 25%, #000 50%, transparent 100%),
+                radial-gradient(2px 2px at 45% 65%, #000 50%, transparent 100%),
+                radial-gradient(1px 1px at 75% 35%, #000 50%, transparent 100%),
+                radial-gradient(2.5px 2.5px at 85% 85%, #000 50%, transparent 100%),
+                radial-gradient(1px 1px at 25% 95%, #000 50%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 95% 15%, #000 50%, transparent 100%);
+            background-size: 250px 250px;
+            animation: twinkle 6s ease-in-out infinite alternate, slow-drift 100s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+        @keyframes slow-drift {
+            0% { background-position: 0px 0px; }
+            100% { background-position: -250px -250px; }
+        }
     </style>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen">
 
     <!-- Navigation Bar -->
     <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
@@ -49,6 +89,9 @@
                         <a href="{{ url_for('login') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Log In</a>
                     {% endif %}
                     
+                    <a href="#" id="theme-toggle" class="text-gray-500 hover:text-emerald-600 transition-colors w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100" title="Toggle Dark Mode">
+                        <i class="fa-solid fa-moon text-xl" id="theme-icon"></i>
+                    </a>
                     <a href="{{ url_for('rescue') }}" class="emerald-gradient text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
                         Rescue Food 
                         <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
@@ -76,6 +119,9 @@
                 <a href="{{ url_for('about') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">About</a>
                 <a href="{{ url_for('donate') }}" target="_blank" class="block px-3 py-2 text-indigo-700 font-bold bg-indigo-50 rounded-lg border border-indigo-100">💜 Donate Funds</a>
                 <a href="{{ url_for('rescue') }}" target="_blank" class="block px-3 py-2 text-emerald-700 font-bold bg-emerald-50 rounded-lg mt-2">Rescue Food</a>
+                <button id="mobile-theme-toggle" class="w-full text-left px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50 mt-2 flex items-center">
+                    <i class="fa-solid fa-moon mr-3" id="mobile-theme-icon"></i> <span id="mobile-theme-text">Enable Dark Mode</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -198,6 +244,43 @@
         const chatInput = document.getElementById('chat-input');
         const chatSend = document.getElementById('chat-send');
         const chatMessages = document.getElementById('chat-messages');
+        
+        // Smart Dark Mode Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const mobileThemeText = document.getElementById('mobile-theme-text');
+
+        function applyTheme(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add('dark-mode');
+                if(themeIcon) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); }
+                if(mobileThemeIcon) { mobileThemeIcon.classList.remove('fa-moon'); mobileThemeIcon.classList.add('fa-sun'); mobileThemeText.innerText = 'Disable Dark Mode'; }
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+                if(themeIcon) { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); }
+                if(mobileThemeIcon) { mobileThemeIcon.classList.remove('fa-sun'); mobileThemeIcon.classList.add('fa-moon'); mobileThemeText.innerText = 'Enable Dark Mode'; }
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Initialize Theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            applyTheme(true);
+        } else {
+            applyTheme(false); // default light
+        }
+
+        function handleThemeToggle(e) {
+            e.preventDefault();
+            const isDark = !document.documentElement.classList.contains('dark-mode');
+            applyTheme(isDark);
+        }
+
+        if(themeToggle) themeToggle.addEventListener('click', handleThemeToggle);
+        if(mobileThemeToggle) mobileThemeToggle.addEventListener('click', handleThemeToggle);
 
         function toggleChat() {
             if (chatbotWindow.classList.contains('hidden')) {
