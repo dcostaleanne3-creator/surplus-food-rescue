@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | Surplus Food Rescue{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+    <!-- Header -->
+    <div class="relative bg-gray-900 py-24 sm:py-32">
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Fresh food" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl outfit-font">Our Mission</h1>
+            <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Bridging the gap between excess food and empty plates in Hubballi through technology and community action.
+            </p>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="py-16 xl:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900 outfit-font sm:text-4xl mb-6">The Problem We're Solving</h2>
+                <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+                    <p>
+                        Every day in Hubballi, hundreds of kilograms of perfectly good, nutritious food from weddings, corporate events, and restaurants end up in landfills, while simultaneously, vulnerable communities skip meals.
+                    </p>
+                    <p>
+                        The primary issue isn't a lack of food—it's a massive logistical failure. We saw the need for a real-time, highly efficient network to bridge this gap.
+                    </p>
+                    <div class="bg-emerald-50 rounded-2xl p-6 border-l-4 border-emerald-500 text-emerald-900 font-medium">
+                        "If we can rescue just 25% of the food wasted at large events, we can eliminate hunger in our immediate districts."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="absolute inset-0 bg-emerald-200 rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
+                <img class="relative rounded-3xl shadow-xl object-cover w-full h-[400px]" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Volunteers serving food">
+            </div>
+        </div>
+
+        <div class="mt-24">
+            <h2 class="text-3xl font-extrabold text-gray-900 outfit-font sm:text-4xl text-center mb-16">Our Core Values</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 outfit-font">Speed & Efficiency</h3>
+                    <p class="text-gray-600">Using AI and instant notifications, we ensure food is rescued and redistributed before it loses nutritional value or spoils.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-handshake-angle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 outfit-font">Community First</h3>
+                    <p class="text-gray-600">We partner exclusively with verified local NGOs who have deep roots in the communities they serve.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 outfit-font">Sustainability</h3>
+                    <p class="text-gray-600">Beyond feeding people, our mission is to dramatically reduce the methane emissions caused by food rot in municipal landfills.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

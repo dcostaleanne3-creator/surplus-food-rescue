@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Surplus Food Rescue{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20">
+            <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                <div class="sm:text-center lg:text-left">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:leading-tight">
+                        <span class="block xl:inline">Share the abundance,</span>
+                        <span class="block text-emerald-600 mt-2">fight hunger locally.</span>
+                    </h1>
+                    <p class="mt-6 text-base text-gray-500 sm:mt-8 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-8 md:text-xl lg:mx-0 leading-relaxed">
+                        Join Hubballi's leading surplus food redistribution network. We connect excess quality food from events and restaurants directly to verified NGOs serving those in need.
+                    </p>
+                    <div class="mt-8 sm:mt-10 sm:flex sm:justify-center lg:justify-start gap-4">
+                        <div class="rounded-full shadow">
+                            <a href="{{ url_for('rescue') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-full text-white emerald-gradient hover:shadow-xl hover:scale-105 transition-all md:py-4 md:text-lg md:px-10">
+                                Donate Food Now
+                            </a>
+                        </div>
+                        <div class="mt-3 sm:mt-0">
+                            <a href="{{ url_for('about') }}" class="w-full flex items-center justify-center px-8 py-3 border-2 border-emerald-100 text-base font-bold rounded-full text-emerald-700 bg-emerald-50 hover:bg-emerald-100 hover:border-emerald-200 transition-all md:py-4 md:text-lg md:px-10">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 mt-10 lg:mt-0 relative h-64 sm:h-72 md:h-96 lg:h-full">
+        <div class="absolute inset-0 bg-emerald-700 mix-blend-multiply opacity-20 hidden lg:block"></div>
+        <!-- Using a placeholder image with a food theme that looks premium -->
+        <img class="h-full w-full object-cover rounded-xl lg:rounded-none lg:rounded-l-3xl shadow-2xl" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Volunteers packing surplus food">
+    </div>
+</div>
+
+<!-- Impact Stats -->
+<div class="bg-gray-50 pt-12 sm:pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Trusted by Hubballi's Community
+            </h2>
+            <p class="mt-3 text-xl text-gray-500 sm:mt-4">
+                Together, we've created a sustainable model for zero food waste.
+            </p>
+        </div>
+    </div>
+    <div class="mt-10 pb-12 bg-white sm:pb-16 border-b border-gray-100">
+        <div class="relative">
+            <div class="absolute inset-0 h-1/2 bg-gray-50"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <dl class="rounded-2xl bg-white shadow-xl grid grid-cols-1 sm:grid-cols-3 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 border border-gray-100">
+                        <div class="flex flex-col border-b border-gray-100 p-8 text-center sm:border-0">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Meals Served</dt>
+                            <dd class="order-1 text-5xl font-extrabold text-emerald-600">24k+</dd>
+                        </div>
+                        <div class="flex flex-col border-t border-b border-gray-100 p-8 text-center sm:border-0 border-l border-gray-100">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Food Saved</dt>
+                            <dd class="order-1 text-5xl font-extrabold text-emerald-600">8,500<span class="text-3xl">kg</span></dd>
+                        </div>
+                        <div class="flex flex-col border-t border-gray-100 p-8 text-center sm:border-0 border-l border-gray-100">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Partner NGOs</dt>
+                            <dd class="order-1 text-5xl font-extrabold text-emerald-600">12</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features -->
+<div class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-base text-emerald-600 font-semibold tracking-wide uppercase">How it works</h2>
+            <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl outfit-font">
+                A seamless process to stop waste
+            </p>
+            <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                We use predictive AI to route food efficiently and safely before it spoils.
+            </p>
+        </div>
+
+        <div class="mt-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <!-- Step 1 -->
+                <div class="group">
+                    <div class="flex items-center justify-center w-24 h-24 mx-auto bg-emerald-50 text-emerald-600 rounded-3xl group-hover:-translate-y-2 transition-transform duration-300 shadow-sm border border-emerald-100">
+                        <i class="fa-solid fa-clipboard-list text-3xl"></i>
+                    </div>
+                    <h3 class="mt-8 text-xl font-bold text-gray-900 outfit-font">1. Log Surplus</h3>
+                    <p class="mt-4 text-base text-gray-500 leading-relaxed">
+                        Got extra food from an event or restaurant? Simply fill out our quick form with the quantity and type of food.
+                    </p>
+                </div>
+                <!-- Step 2 -->
+                <div class="group">
+                    <div class="flex items-center justify-center w-24 h-24 mx-auto bg-emerald-50 text-emerald-600 rounded-3xl group-hover:-translate-y-2 transition-transform duration-300 shadow-sm border border-emerald-100">
+                        <i class="fa-solid fa-robot text-3xl"></i>
+                    </div>
+                    <h3 class="mt-8 text-xl font-bold text-gray-900 outfit-font">2. AI Analysis</h3>
+                    <p class="mt-4 text-base text-gray-500 leading-relaxed">
+                        Our system instantly analyzes the data, predicts waste urgency, and automatically identifies the nearest matched NGOs.
+                    </p>
+                </div>
+                <!-- Step 3 -->
+                <div class="group">
+                    <div class="flex items-center justify-center w-24 h-24 mx-auto bg-emerald-50 text-emerald-600 rounded-3xl group-hover:-translate-y-2 transition-transform duration-300 shadow-sm border border-emerald-100">
+                        <i class="fa-solid fa-truck-fast text-3xl"></i>
+                    </div>
+                    <h3 class="mt-8 text-xl font-bold text-gray-900 outfit-font">3. Swift Rescue</h3>
+                    <p class="mt-4 text-base text-gray-500 leading-relaxed">
+                        Vetted partners are alerted instantly to pick up the high-volume surplus and deliver it to those in need.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="bg-emerald-900 rounded-3xl mx-4 sm:mx-6 lg:mx-8 mb-20 overflow-hidden relative shadow-2xl">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+    <div class="max-w-4xl mx-auto text-center py-20 px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 class="text-3xl font-extrabold text-white sm:text-4xl outfit-font">
+            <span class="block">Ready to make a difference?</span>
+            <span class="block text-emerald-300 mt-2">Every meal counts.</span>
+        </h2>
+        <p class="mt-6 text-lg leading-6 text-emerald-100 max-w-xl mx-auto">
+            Whether you're a caterer, restaurant owner, or hosting a party, don't let good food go to waste. Report your surplus today.
+        </p>
+        <div class="mt-10 flex justify-center">
+            <a href="{{ url_for('rescue') }}" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-full text-emerald-900 bg-emerald-300hover:bg-emerald-400 bg-emerald-400 hover:bg-emerald-300 shadow-xl hover:scale-105 transition-all">
+                Rescue Food Now <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

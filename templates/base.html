@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Surplus Food Rescue - Hubballi{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, .outfit-font { font-family: 'Outfit', sans-serif; }
+        .emerald-gradient { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
+        .text-emerald-gradient { 
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-xl emerald-gradient text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-leaf text-xl"></i>
+                        </div>
+                        <span class="font-extrabold text-2xl tracking-tight text-gray-900 outfit-font drop-shadow-sm">
+                            Hubballi <span class="text-emerald-700">Rescue</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{{ url_for('home') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Home</a>
+                    <a href="{{ url_for('dashboard') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Dashboard</a>
+                    <a href="{{ url_for('about') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">About Mission</a>
+                    <a href="{{ url_for('contact') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Contact</a>
+                    <a href="{{ url_for('rescue') }}" class="emerald-gradient text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                        Rescue Food 
+                        <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-600 hover:text-emerald-600 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 py-3 space-y-2">
+                <a href="{{ url_for('home') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Home</a>
+                <a href="{{ url_for('dashboard') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Dashboard</a>
+                <a href="{{ url_for('about') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">About Mission</a>
+                <a href="{{ url_for('contact') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Contact</a>
+                <a href="{{ url_for('rescue') }}" class="block px-3 py-2 text-emerald-700 font-bold bg-emerald-50 rounded-lg">Rescue Food</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-leaf text-emerald-500 text-2xl"></i>
+                        <span class="font-extrabold text-2xl text-white outfit-font">Hubballi Rescue</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">
+                        Dedicated to fighting hunger and reducing food waste in Hubballi. Creating a seamless bridge between surplus food and those in need.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-colors duration-300"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-colors duration-300"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-colors duration-300"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold outfit-font text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('home') }}" class="hover:text-emerald-400 transition-colors">Home</a></li>
+                        <li><a href="{{ url_for('about') }}" class="hover:text-emerald-400 transition-colors">About Us</a></li>
+                        <li><a href="{{ url_for('rescue') }}" class="hover:text-emerald-400 transition-colors">Rescue Food</a></li>
+                        <li><a href="{{ url_for('contact') }}" class="hover:text-emerald-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold outfit-font text-lg mb-4">Contact Info</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-emerald-500"></i>
+                            <span>123 Innovation Tech Park,<br>Vidyanagar, Hubballi 580021</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-emerald-500"></i>
+                            <span>hello@hubballirescue.org</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-emerald-500"></i>
+                            <span>+91 800-456-7890</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2026 Hubballi Food Rescue. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-gray-300 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
