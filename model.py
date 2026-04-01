@@ -1,9 +1,12 @@
+import os
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 
-# Load your Hubballi food waste dataset
-data = pd.read_csv('data/food_wastage_data.csv')
+# Get true path to data file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, 'data', 'food_wastage_data.csv')
+data = pd.read_csv(DATA_PATH)
 
 # Create encoders for all categorical columns found in your CSV
 label_encoders = {}

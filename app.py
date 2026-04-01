@@ -20,8 +20,11 @@ if gemini_api_key:
 else:
     chat_model = None
 
+# Handle dynamic database path for Vercel vs Local
+DB_PATH = '/tmp/rescue.db' if os.environ.get('VERCEL') else 'rescue.db'
+
 def init_db():
-    conn = sqlite3.connect('rescue.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('''
         CREATE TABLE IF NOT EXISTS rescues (
@@ -95,6 +98,9 @@ def send_ngo_alert(food_data, amount):
         print(f"Email Error: {e}")
         return False
 
+# Initialize the database immediately
+init_db()
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -119,7 +125,7 @@ def register():
         password = request.form.get('password')
         hashed_pw = generate_password_hash(password)
         try:
-            conn = sqlite3.connect('rescue.db')
+            conn = sqlite3.connect(DB_PATH)
             c = conn.cursor()
             c.execute('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', (name, email, hashed_pw))
             conn.commit()
@@ -136,7 +142,7 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        conn = sqlite3.connect('rescue.db')
+        conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
         c.execute('SELECT * FROM users WHERE email = ?', (email,))
@@ -163,7 +169,7 @@ def dashboard():
         flash('Please log in to access your dashboard.', 'error')
         return redirect(url_for('login'))
         
-    conn = sqlite3.connect('rescue.db')
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
     
@@ -191,7 +197,7 @@ def donate():
         user_id = session.get('user_id')
         
         if amount > 0:
-            conn = sqlite3.connect('rescue.db')
+            conn = sqlite3.connect(DB_PATH)
             c = conn.cursor()
             c.execute('INSERT INTO donations (user_id, amount, message) VALUES (?, ?, ?)', (user_id, amount, message))
             conn.commit()
@@ -228,7 +234,7 @@ def predict():
             action = "NGO Notification Sent Successfully" if email_sent else "Email Alert Triggered"
             assigned_ngo = ngo_partners[0]['name']
 
-        conn = sqlite3.connect('rescue.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         user_id = session.get('user_id')
         c.execute('''

@@ -2,3 +2,9 @@ flask
 pandas
 scikit-learn
 google-generativeai
+gunicorn
+python-dotenv
+werkzeug
+jinja2
+itsdangerous
+click
