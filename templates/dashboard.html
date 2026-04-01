@@ -22,7 +22,7 @@
         </div>
 
         <!-- KPI Cards -->
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div class="bg-white overflow-hidden shadow-sm rounded-2xl border border-gray-100 hover:shadow-md transition-shadow">
                 <div class="p-6">
                     <div class="flex items-center">
@@ -70,6 +70,24 @@
                                 <dt class="text-sm font-medium text-gray-500 truncate">Active Ngo Partners</dt>
                                 <dd class="flex items-baseline">
                                     <div class="text-3xl font-extrabold text-gray-900">3</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm rounded-2xl border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-emerald-100 rounded-xl p-3">
+                            <i class="fa-solid fa-indian-rupee-sign text-emerald-600 text-xl"></i>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Your Impact (Funds)</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-3xl font-extrabold text-gray-900">₹{{ total_funds }}</div>
                                 </dd>
                             </dl>
                         </div>

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}Donate - Hubballi Rescue{% endblock %}
+{% block content %}
+<style>
+    .indigo-gradient { background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); }
+</style>
+<div class="max-w-xl mx-auto mt-16 bg-white p-8 sm:p-10 rounded-3xl shadow-2xl mb-16 border border-gray-100">
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full indigo-gradient text-white mb-6 shadow-lg transform -translate-y-4">
+            <i class="fa-solid fa-hand-holding-dollar text-3xl"></i>
+        </div>
+        <h2 class="text-3xl font-extrabold outfit-font text-gray-900">Make a Financial Impact</h2>
+        <p class="text-sm text-gray-500 mt-2">Your donation helps our faculty share food and resources with local children and ashrams.</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="p-4 mb-6 text-sm rounded-xl {% if category == 'error' %}bg-red-50 text-red-800 border border-red-100{% else %}bg-indigo-50 text-indigo-800 border border-indigo-100{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/donate" class="space-y-6">
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-3">Select Impact Level</label>
+            <fieldset class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 relative z-10">
+                <legend class="sr-only">Impact Level Options</legend>
+
+                <!-- Card 1 -->
+                <label class="group relative cursor-pointer outline-none block h-full w-full" tabindex="0">
+                    <input type="radio" name="impact" value="500" class="peer sr-only" onchange="document.getElementById('amount').value=this.value" checked>
+                    <div class="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-slate-800/80 p-5 shadow-lg transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform
+                                group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:border-indigo-500/50 group-hover:shadow-[0_10px_30px_-10px_rgba(99,102,241,0.3)]
+                                peer-checked:-translate-y-1 peer-checked:scale-[1.02] peer-checked:border-indigo-500 peer-checked:bg-gradient-to-br peer-checked:from-indigo-900/30 peer-checked:to-slate-900 peer-checked:shadow-[0_0_20px_rgba(99,102,241,0.4)]
+                                peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-400 peer-focus-visible:ring-offset-2">
+                        <div class="flex justify-between items-start mb-4 relative z-10">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800 text-slate-400 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
+                                        group-hover:bg-indigo-500/20 group-hover:text-indigo-400
+                                        peer-checked:bg-indigo-500/30 peer-checked:text-indigo-300">
+                                <span class="font-bold text-lg">₹</span>
+                            </div>
+                            <div class="relative flex h-3 w-3 items-center justify-center mt-1">
+                                <span class="absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-0 transition-all duration-400 peer-checked:opacity-50 peer-checked:animate-ping"></span>
+                                <span class="relative inline-flex h-2 w-2 rounded-full bg-slate-700 transition-all duration-400 group-hover:bg-indigo-400/50 peer-checked:bg-indigo-400"></span>
+                            </div>
+                        </div>
+                        <div class="relative z-10 transition-colors duration-400 group-hover:text-indigo-50 peer-checked:text-white">
+                            <h3 class="text-xl font-bold mb-1">500</h3>
+                            <p class="text-[11px] leading-tight text-slate-400 group-hover:text-slate-300 peer-checked:text-indigo-200/80">Starter Supporter</p>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full overflow-hidden rounded-b-2xl opacity-0 group-hover:opacity-100 peer-checked:opacity-100 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] pointer-events-none">
+                        <div class="h-full bg-indigo-500 w-0 group-hover:w-full peer-checked:w-full transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] shadow-[0_-2px_10px_rgba(99,102,241,0.8)]"></div>
+                    </div>
+                </label>
+
+                <!-- Card 2 -->
+                <label class="group relative cursor-pointer outline-none block h-full w-full" tabindex="0">
+                    <input type="radio" name="impact" value="1000" class="peer sr-only" onchange="document.getElementById('amount').value=this.value">
+                    <div class="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-slate-800/80 p-5 shadow-lg transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform
+                                group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:border-indigo-500/50 group-hover:shadow-[0_10px_30px_-10px_rgba(99,102,241,0.3)]
+                                peer-checked:-translate-y-1 peer-checked:scale-[1.02] peer-checked:border-indigo-500 peer-checked:bg-gradient-to-br peer-checked:from-indigo-900/30 peer-checked:to-slate-900 peer-checked:shadow-[0_0_20px_rgba(99,102,241,0.4)]
+                                peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-400 peer-focus-visible:ring-offset-2">
+                        <div class="flex justify-between items-start mb-4 relative z-10">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800 text-slate-400 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
+                                        group-hover:bg-indigo-500/20 group-hover:text-indigo-400
+                                        peer-checked:bg-indigo-500/30 peer-checked:text-indigo-300">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div class="relative flex h-3 w-3 items-center justify-center mt-1">
+                                <span class="absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-0 transition-all duration-400 peer-checked:opacity-50 peer-checked:animate-ping"></span>
+                                <span class="relative inline-flex h-2 w-2 rounded-full bg-slate-700 transition-all duration-400 group-hover:bg-indigo-400/50 peer-checked:bg-indigo-400"></span>
+                            </div>
+                        </div>
+                        <div class="relative z-10 transition-colors duration-400 group-hover:text-indigo-50 peer-checked:text-white">
+                            <h3 class="text-xl font-bold mb-1">1000</h3>
+                            <p class="text-[11px] leading-tight text-slate-400 group-hover:text-slate-300 peer-checked:text-indigo-200/80">Pro Sponsor</p>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full overflow-hidden rounded-b-2xl opacity-0 group-hover:opacity-100 peer-checked:opacity-100 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] pointer-events-none">
+                        <div class="h-full bg-indigo-500 w-0 group-hover:w-full peer-checked:w-full transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] shadow-[0_-2px_10px_rgba(99,102,241,0.8)]"></div>
+                    </div>
+                </label>
+
+                <!-- Card 3 -->
+                <label class="group relative cursor-pointer outline-none block h-full w-full" tabindex="0">
+                    <input type="radio" name="impact" value="5000" class="peer sr-only" onchange="document.getElementById('amount').value=this.value">
+                    <div class="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-slate-800/80 p-5 shadow-lg transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform
+                                group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:border-indigo-500/50 group-hover:shadow-[0_10px_30px_-10px_rgba(99,102,241,0.3)]
+                                peer-checked:-translate-y-1 peer-checked:scale-[1.02] peer-checked:border-indigo-500 peer-checked:bg-gradient-to-br peer-checked:from-indigo-900/30 peer-checked:to-slate-900 peer-checked:shadow-[0_0_20px_rgba(99,102,241,0.4)]
+                                peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-400 peer-focus-visible:ring-offset-2">
+                        <div class="flex justify-between items-start mb-4 relative z-10">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800 text-slate-400 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
+                                        group-hover:bg-indigo-500/20 group-hover:text-indigo-400
+                                        peer-checked:bg-indigo-500/30 peer-checked:text-indigo-300">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <div class="relative flex h-3 w-3 items-center justify-center mt-1">
+                                <span class="absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-0 transition-all duration-400 peer-checked:opacity-50 peer-checked:animate-ping"></span>
+                                <span class="relative inline-flex h-2 w-2 rounded-full bg-slate-700 transition-all duration-400 group-hover:bg-indigo-400/50 peer-checked:bg-indigo-400"></span>
+                            </div>
+                        </div>
+                        <div class="relative z-10 transition-colors duration-400 group-hover:text-indigo-50 peer-checked:text-white">
+                            <h3 class="text-xl font-bold mb-1">5000</h3>
+                            <p class="text-[11px] leading-tight text-slate-400 group-hover:text-slate-300 peer-checked:text-indigo-200/80">Enterprise Hero</p>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full overflow-hidden rounded-b-2xl opacity-0 group-hover:opacity-100 peer-checked:opacity-100 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] pointer-events-none">
+                        <div class="h-full bg-indigo-500 w-0 group-hover:w-full peer-checked:w-full transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] shadow-[0_-2px_10px_rgba(99,102,241,0.8)]"></div>
+                    </div>
+                </label>
+            </fieldset>
+            
+            <div class="relative mt-2">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <span class="text-gray-500 sm:text-lg font-bold">₹</span>
+                </div>
+                <input type="number" name="amount" id="amount" value="500" min="1" step="0.01" required placeholder="Custom Amount" class="pl-10 mt-1 block w-full px-4 py-3.5 border-2 border-gray-100 rounded-xl shadow-sm focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-colors font-bold text-gray-700 outline-none">
+            </div>
+            
+            <!-- Keyboard interaction script for labels -->
+            <script>
+                document.querySelectorAll('label[tabindex="0"]').forEach(label => {
+                    label.addEventListener('keydown', (e) => {
+                        if(e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            label.click();
+                        }
+                    });
+                });
+            </script>
+        </div>
+        
+        <div>
+            <label for="message" class="block text-sm font-bold text-gray-700 mb-2">Message to the Children & Ashrams (Optional)</label>
+            <textarea name="message" id="message" rows="3" placeholder="Leave a kind note of support..." class="mt-1 block w-full px-4 py-3.5 border-2 border-gray-100 rounded-xl shadow-sm focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-colors resize-none text-gray-700 outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-500/30 text-base font-bold text-white indigo-gradient hover:-translate-y-0.5 transition-all">
+            Securely Donate Now
+        </button>
+        <p class="text-xs text-center text-gray-400 mt-4 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-lock"></i> 100% Secure & Encrypted Transaction Simulation
+        </p>
+    </form>
+</div>
+{% endblock %}

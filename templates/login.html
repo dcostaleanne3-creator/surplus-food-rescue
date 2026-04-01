@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Login - Hubballi Rescue{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto mt-16 bg-white p-8 rounded-2xl shadow-xl mb-16 border border-gray-100">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold outfit-font text-gray-900">Welcome Back</h2>
+        <p class="text-sm text-gray-500 mt-2">Log in to your Hubballi Rescue account.</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="p-4 mb-4 text-sm rounded-lg {% if category == 'error' %}bg-red-50 text-red-800{% else %}bg-emerald-50 text-emerald-800{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/login" class="space-y-6">
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+            <input type="email" name="email" id="email" required class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-colors">
+        </div>
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password" id="password" required class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-colors">
+        </div>
+        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white emerald-gradient hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all">
+            Sign In
+        </button>
+    </form>
+    
+    <p class="mt-6 text-center text-sm text-gray-600">
+        Don't have an account? 
+        <a href="{{ url_for('register') }}" class="font-medium text-emerald-600 hover:text-emerald-500 transition-colors">Register here</a>
+    </p>
+</div>
+{% endblock %}

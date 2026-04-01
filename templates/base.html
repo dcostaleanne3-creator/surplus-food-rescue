@@ -37,11 +37,18 @@
                         </span>
                     </a>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-6">
                     <a href="{{ url_for('home') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Home</a>
-                    <a href="{{ url_for('dashboard') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Dashboard</a>
-                    <a href="{{ url_for('about') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">About Mission</a>
-                    <a href="{{ url_for('contact') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Contact</a>
+                    <a href="{{ url_for('about') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">About</a>
+                    <a href="{{ url_for('donate') }}" target="_blank" class="bg-indigo-50 text-indigo-700 px-5 py-2 rounded-full font-bold hover:bg-indigo-100 transition-colors border border-indigo-100 shadow-sm">💜 Donate Funds</a>
+                    
+                    {% if session.user_id %}
+                        <a href="{{ url_for('dashboard') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Dashboard</a>
+                        <a href="{{ url_for('logout') }}" class="text-gray-600 hover:text-emerald-500 font-medium transition-colors">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Log In</a>
+                    {% endif %}
+                    
                     <a href="{{ url_for('rescue') }}" class="emerald-gradient text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
                         Rescue Food 
                         <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
@@ -59,10 +66,16 @@
         <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
             <div class="px-4 py-3 space-y-2">
                 <a href="{{ url_for('home') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Home</a>
-                <a href="{{ url_for('dashboard') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Dashboard</a>
-                <a href="{{ url_for('about') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">About Mission</a>
-                <a href="{{ url_for('contact') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Contact</a>
-                <a href="{{ url_for('rescue') }}" class="block px-3 py-2 text-emerald-700 font-bold bg-emerald-50 rounded-lg">Rescue Food</a>
+                {% if session.user_id %}
+                    <a href="{{ url_for('dashboard') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Log In</a>
+                    <a href="{{ url_for('register') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">Register</a>
+                {% endif %}
+                <a href="{{ url_for('about') }}" class="block px-3 py-2 text-gray-600 hover:text-emerald-600 font-medium rounded-lg hover:bg-emerald-50">About</a>
+                <a href="{{ url_for('donate') }}" target="_blank" class="block px-3 py-2 text-indigo-700 font-bold bg-indigo-50 rounded-lg border border-indigo-100">💜 Donate Funds</a>
+                <a href="{{ url_for('rescue') }}" target="_blank" class="block px-3 py-2 text-emerald-700 font-bold bg-emerald-50 rounded-lg mt-2">Rescue Food</a>
             </div>
         </div>
     </nav>
@@ -127,11 +140,138 @@
         </div>
     </footer>
 
+    <!-- Chatbot Widget -->
+    <div id="chatbot-container" class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Bubble Button -->
+        <button id="chatbot-toggle" class="emerald-gradient text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform focus:outline-none">
+            <i class="fa-solid fa-message text-2xl"></i>
+        </button>
+
+        <!-- Chat Window (Hidden by default) -->
+        <div id="chatbot-window" class="hidden absolute bottom-16 right-0 w-[85vw] sm:w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right transform scale-95 opacity-0">
+            <!-- Header -->
+            <div class="emerald-gradient text-white p-4 flex justify-between items-center z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold outfit-font text-sm leading-tight">Personal Agent</h3>
+                        <p class="text-[10px] text-emerald-100 leading-tight flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-300 inline-block"></span> Online
+                        </p>
+                    </div>
+                </div>
+                <button id="chatbot-close" class="text-emerald-100 hover:text-white transition-colors focus:outline-none">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Messages Area -->
+            <div id="chat-messages" class="flex-grow h-72 p-4 overflow-y-auto bg-gray-50/50 flex flex-col gap-3">
+                <div class="self-start bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] text-sm text-gray-700">
+                    Hello! I'm your Personal Communication Agent. How can I assist you with your food rescue mission today?
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 border-t border-gray-100 bg-white flex items-end gap-2">
+                <textarea id="chat-input" rows="1" class="flex-grow resize-none rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm p-3 transition-colors shadow-inner" placeholder="Type your message..."></textarea>
+                <button id="chat-send" class="emerald-gradient text-white h-11 w-11 rounded-xl flex-shrink-0 flex items-center justify-center shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Mobile Menu Toggle
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
+        });
+
+        // Chatbot Logic
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+        const chatMessages = document.getElementById('chat-messages');
+
+        function toggleChat() {
+            if (chatbotWindow.classList.contains('hidden')) {
+                chatbotWindow.classList.remove('hidden');
+                setTimeout(() => {
+                    chatbotWindow.classList.remove('scale-95', 'opacity-0');
+                    chatbotWindow.classList.add('scale-100', 'opacity-100');
+                    chatInput.focus();
+                }, 10);
+            } else {
+                chatbotWindow.classList.remove('scale-100', 'opacity-100');
+                chatbotWindow.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    chatbotWindow.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        chatbotToggle.addEventListener('click', toggleChat);
+        chatbotClose.addEventListener('click', toggleChat);
+
+        function addMessage(text, isUser=false) {
+            const div = document.createElement('div');
+            // Regex to parse crude markdown generated by AI
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+            formattedText = formattedText.replace(/\n/g, '<br>');
+            
+            div.className = `p-3 rounded-2xl shadow-sm max-w-[85%] text-sm ${isUser ? 'self-end bg-emerald-600 text-white rounded-tr-sm' : 'self-start bg-white border border-gray-100 text-gray-700 rounded-tl-sm'} mt-1`;
+            div.innerHTML = formattedText;
+            chatMessages.appendChild(div);
+            // smooth scroll
+            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if(!text) return;
+            
+            addMessage(text, true);
+            chatInput.value = '';
+            chatSend.disabled = true;
+            chatInput.disabled = true;
+            
+            const loadDiv = document.createElement('div');
+            loadDiv.className = "self-start bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-sm shadow-sm text-sm text-gray-500 italic flex items-center gap-2";
+            loadDiv.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-emerald-500"></i> Thinking...';
+            chatMessages.appendChild(loadDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const res = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({message: text})
+                });
+                const data = await res.json();
+                loadDiv.remove();
+                addMessage(data.reply, false);
+            } catch(e) {
+                loadDiv.remove();
+                addMessage("Oops! Connection error.", false);
+            } finally {
+                chatSend.disabled = false;
+                chatInput.disabled = false;
+                chatInput.focus();
+            }
+        }
+
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
         });
     </script>
     
